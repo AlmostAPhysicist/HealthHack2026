@@ -197,13 +197,14 @@ SAMPLES_JS = r"""
 export default function(component) {
   const { data, parentElement } = component;
   const host = parentElement.querySelector('.sets');
-  const full = u => new URL(u, location.origin + '/').href;
+  const full = u => new URL(u, document.baseURI).href;      // relative to the app: works at / and under a subpath (GitHub Pages)
   // Put files into a Streamlit file uploader: build File objects and hand them to its hidden input.
   window.__glkAdd = window.__glkAdd || (async (uploader, files) => {
     const dt = new DataTransfer();
     for (const f of files) {
-      const blob = await (await fetch(full(f.url))).blob();
-      dt.items.add(new File([blob], f.name, { type: f.type }));
+      const r = await fetch(full(f.url));
+      if (!r.ok) { console.warn('sample file missing', f.url); continue; }
+      dt.items.add(new File([await r.blob()], f.name, { type: f.type }));
     }
     const input = uploader.querySelector('input[type=file]');
     input.files = dt.files;
