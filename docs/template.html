@@ -94,12 +94,14 @@ footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); ma
   </div>
 
   <h2 id="how">How it works</h2>
+  <p>The site's <b>How it works</b> page walks through every step on one real person, Sam, with his own data and charts. In short:</p>
   <div class="dots">{{FLOW}}</div>
   <div class="grid">
     <div><h3>Read the plate</h3><p>CLIP, an open image model, gives a phrase for the photo. The best phrases are matched to 5,200 USDA foods at a typical portion, and to meals you logged before that look the same.</p></div>
     <div><h3>Learn you first</h3><p>A regression on your recent glucose, food, insulin and activity, fitted in three layers: everyone, people like you, then you. Your own data counts most once there is enough of it.</p></div>
     <div><h3>Say how sure we are</h3><p>We replay your last 20 meals and size the band so about 8 in 10 of your real readings fall inside it.</p></div>
   </div>
+  <p class="cap">More: cleaning and classification, how food and insulin reach the blood, the second model, and how we validate. Summary in the <a href="{{REPO}}#how-it-works">README</a>; the full walk-through is in the app.</p>
 
   <h2 id="results">Results</h2>
   <p>On people the model never saw: learn from days 1 to 7, predict every meal from day 8 on, scored against the raw sensor.</p>
