@@ -1,5 +1,6 @@
 """Look and feel, kept light (no models, no plotting) so a page can draw its first screen at once:
 Flexoki colours for the page's theme, shared CSS, and the Glucklich name."""
+import sys
 from pathlib import Path
 
 import streamlit as st
@@ -49,6 +50,34 @@ export default function(component) {
     return m && (0.299 * m[0] + 0.587 * m[1] + 0.114 * m[2]) < 128 ? 'dark' : 'light';
   };
   window.__glkPy = data.theme;
+  if (data.browser && !window.__glkBusy) {   // browser version: Python can't redraw mid-run, so say "Running..." from here
+    window.__glkBusy = true;
+    const css = document.createElement('style');
+    css.textContent = `#glk-busy {position: fixed; top: .75rem; right: 3.4rem; z-index: 999999; display: none; align-items: center;
+      gap: .5rem; padding: .35rem .85rem; border-radius: 999px; background: var(--bg2); color: var(--tx); font-size: .95rem;
+      font-family: Libron, Georgia, serif; box-shadow: 0 2px 10px rgba(0, 0, 0, .15);}
+      #glk-busy.on {display: flex;}
+      #glk-busy i {width: .6rem; height: .6rem; border-radius: 50%; background: var(--magenta); animation: glk-blink 1s ease-in-out infinite;}
+      @keyframes glk-blink {0%, 100% {opacity: .25;} 50% {opacity: 1;}}`;
+    document.head.appendChild(css);
+    const el = document.createElement('div');
+    el.id = 'glk-busy';
+    el.innerHTML = '<i></i><span>Running...</span>';
+    document.body.appendChild(el);
+    let since = 0, timer;
+    const off = () => { el.classList.remove('on'); clearTimeout(timer); };
+    document.addEventListener('click', e => {
+      const b = e.target.closest && e.target.closest('[data-testid="stButton"] button, [data-testid="stFileUploader"] button');
+      if (!b || b.disabled) return;
+      since = Date.now(); el.classList.add('on');
+      clearTimeout(timer); timer = setTimeout(off, 180000);
+    }, true);
+    new MutationObserver(ms => {                // the page redrawing = the run is done
+      if (!el.classList.contains('on') || Date.now() - since < 1200) return;
+      const main = document.querySelector('[data-testid="stMain"]');
+      if (ms.some(m => main && main.contains(m.target) && (m.addedNodes.length || m.removedNodes.length))) off();
+    }).observe(document.body, { childList: true, subtree: true });
+  }
   if (!window.__glkWatch) {
     window.__glkWatch = setInterval(() => {
       const t = now();
@@ -108,7 +137,8 @@ def css():
     </style>""", unsafe_allow_html=True)
     if "_theme_watch" not in st.session_state:
         st.session_state["_theme_watch"] = st.components.v2.component("theme_watch", html="<span></span>", js=THEME_JS)
-    st.session_state["_theme_watch"](key="theme_watch", data={"theme": theme()}, on_theme_change=lambda: None, height=0)
+    st.session_state["_theme_watch"](key="theme_watch", data={"theme": theme(), "browser": sys.platform == "emscripten"},
+                                   on_theme_change=lambda: None, height=0)
 
 
 SAY_JS = r"""

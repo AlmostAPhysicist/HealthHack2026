@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 STLITE = "1.11.0"
-REQUIREMENTS = ["plotly", "scikit-learn", "scipy", "pillow", "openpyxl", "xlrd", "toml"]
+REQUIREMENTS = ["plotly", "scikit-learn", "scipy", "pillow", "openpyxl", "xlrd", "toml", "anyio"]
 
 # (path in the repo, path in the browser) for everything the pages read from disk
 CODE = ["app.py", ".streamlit/config.toml", *[p.relative_to(ROOT).as_posix() for p in (ROOT / "views").glob("*.py")],
