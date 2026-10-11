@@ -1,11 +1,10 @@
-# Publishes docs/ (the static project page) to GitHub Pages on every push that changes it.
-# The Streamlit site itself needs a Python server, so it is not deployed here.
+# Publishes the project page (docs/) and the full site (docs/build_app.py: the Streamlit app run in the browser by
+# stlite) to GitHub Pages.
 name: Pages
 
 on:
   push:
     branches: [main]
-    paths: ["docs/**", ".github/workflows/pages.yml"]
   workflow_dispatch:
 
 permissions:
@@ -25,9 +24,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/configure-pages@v5
+      - name: Build
+        run: |
+          mkdir _site
+          cp -r docs/index.html docs/img docs/fonts docs/audio _site/
+          python3 docs/build_app.py _site
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs
+          path: _site
       - id: deployment
         uses: actions/deploy-pages@v4

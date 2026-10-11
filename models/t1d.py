@@ -7,7 +7,7 @@ Test people are never used to fit the priors: all of OhioT1DM + a fixed 10 % of 
 """
 import zlib
 
-import duckdb
+
 import pandas as pd
 
 from clean import clean
@@ -44,6 +44,7 @@ def rows():
     if not COHORT.exists():
         COHORT.parent.mkdir(exist_ok=True)
         studies = ", ".join(f"'{s}'" for s in STUDIES)
+        import duckdb
         duckdb.sql(f"""
             COPY (
               WITH first AS (SELECT source_file, id, MIN(date) d0 FROM '{PARQUET}'

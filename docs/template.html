@@ -65,7 +65,7 @@ footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); ma
 <body>
 <nav>
   <b><span class="c-magenta">Gluc</span><span class="c-blue">klich</span></b>
-  <div><a class="hide" href="#how">How it works</a><a class="hide" href="#results">Results</a><a href="{{REPO}}">Code</a><button id="theme" aria-label="Switch between light and dark">Theme</button></div>
+  <div><a class="hide" href="#how">How it works</a><a class="hide" href="#results">Results</a><a href="app/">Open the app</a><a href="{{REPO}}">Code</a><button id="theme" aria-label="Switch between light and dark">Theme</button></div>
 </nav>
 <main>
   <div class="brand"><span class="c-magenta">Gluc</span><span class="c-blue">klich</span></div>
@@ -112,14 +112,16 @@ footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); ma
   </table></div>
   <p class="cap">RMSE: the typical distance between the real readings and our predicted line. Type 1 is harder: logged carbs are rough, and insulin pumps react to glucose as it changes.</p>
 
-  <h2>Try it</h2>
-  <div class="why">The site runs Python models and an image model, so it needs a server. GitHub Pages only serves static pages like this one. To run it yourself:</div>
+  <h2 id="try">Try it</h2>
+  <p>The whole site runs in your browser: the demo people, Meal, Full Day, Log and How it works. Python and the models
+  load onto your device the first time (a minute or two), then everything runs locally.</p>
+  <p><a class="btn" href="app/">Open Glucklich</a> &nbsp; <a href="{{REPO}}">See the code</a></p>
+  <p class="cap">Or run it on your own machine (faster, and reads food photos):</p>
   <pre>git lfs install
 git clone {{REPO}}
 cd HealthHack2026
 pip install -r requirements.txt
 streamlit run app.py</pre>
-  <p><a class="btn" href="{{REPO}}">See the code</a></p>
 
   <footer>
     Wellness Team #3, Health Hack 2026. Not medical advice.<br>

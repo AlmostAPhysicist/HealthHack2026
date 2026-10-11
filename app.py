@@ -4,6 +4,12 @@ from pathlib import Path
 
 import streamlit as st
 
+if sys.platform == "emscripten":                # in the browser (stlite): Streamlit's components ask the Runtime class
+    import streamlit.runtime as _runtime      # for these, which stlite keeps at module level
+    if not hasattr(_runtime.Runtime, "exists"):
+        _runtime.Runtime.exists = staticmethod(_runtime.exists)
+        _runtime.Runtime.instance = staticmethod(_runtime.get_instance)
+
 VIEWS = Path(__file__).resolve().parent / "views"
 sys.path.insert(0, str(VIEWS))
 # The pages share views/style.py and views/engine.py. A running server keeps the old copies in memory, so reload a
