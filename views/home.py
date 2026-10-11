@@ -8,6 +8,7 @@ import base64
 import json
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import streamlit as st
 from PIL import Image
@@ -144,6 +145,10 @@ def demo_person(n):
     history = read(PEOPLE[n] / "history.csv")
     person = learn(history, {"group": ab["diabetes_type"], **({"a1c": ab["a1c"]} if pd.notna(ab.get("a1c")) else {})},
                    f"demo-{n}", exclude=ab.get("dataset_id"), shared=True)
+    saved = PEOPLE[n] / "track_record.npz"                 # replayed ahead of time (models/demo_tracks.py)
+    if "_track" not in person and saved.exists():
+        t = np.load(saved)
+        person["_track"] = {"resid": t["resid"], "mae": float(t["mae"]), "rmse": float(t["rmse"]), "meals": int(t["meals"])}
     track_record(person, history)
     return person
 
