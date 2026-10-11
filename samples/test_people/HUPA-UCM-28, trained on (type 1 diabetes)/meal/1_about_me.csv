@@ -1,0 +1,2 @@
+name,diabetes_type,a1c,age,source,dataset_id
+"HUPA-UCM-28, trained on",t1d,,21.2,HUPA-UCM,HUPA-UCM-28

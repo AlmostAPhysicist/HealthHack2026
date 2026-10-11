@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glucklich</title>
+<meta name="description" content="Glucklich predicts your glucose after a meal, or for a whole day, from your own history. Wellness Team #3, Health Hack 2026.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolyline points='2,22 9,20 13,8 17,24 22,16 30,18' fill='none' stroke='%23A02F6F' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+@font-face {font-family: Libron; src: url(fonts/Libron-Regular.ttf); font-weight: 400;}
+@font-face {font-family: Libron; src: url(fonts/Libron-Bold.ttf); font-weight: 700;}
+@font-face {font-family: Libron; src: url(fonts/Libron-Italic.ttf); font-style: italic;}
+:root {{{LIGHT}}; color-scheme: light;}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {{{DARK}}; color-scheme: dark;} }
+:root[data-theme="dark"] {{{DARK}}; color-scheme: dark;}
+* {box-sizing: border-box;}
+html {-webkit-text-size-adjust: 100%;}
+body {margin: 0; background: var(--bg); color: var(--tx); font-family: Libron, Georgia, serif; font-size: 1.15rem; line-height: 1.6;}
+main {max-width: 980px; margin: 0 auto; padding: 0 16px 4rem;}
+a {color: var(--blue);}
+nav {display: flex; justify-content: space-between; align-items: center; max-width: 980px; margin: 0 auto; padding: 1rem 16px;}
+nav a {color: var(--tx2); text-decoration: none; margin-left: 1.2rem;}
+nav a:hover {color: var(--tx);}
+button {font: inherit; color: inherit; background: none; border: none; cursor: pointer; padding: 0;}
+#theme {color: var(--tx2); margin-left: 1.2rem;}
+#theme:hover {color: var(--tx);}
+.brand {font-size: clamp(3rem, 9vw, 4.6rem); line-height: 1; font-weight: 700; letter-spacing: -.01em; margin-top: 2rem;}
+.say {display: inline-flex; align-items: center; gap: .45rem; color: var(--tx2); font-size: 1.05rem; margin-top: .3rem;}
+.say:hover {color: var(--tx);}
+.say svg {width: 20px; height: 20px;}
+.team {font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; margin-top: .6rem;}
+.kicker {text-transform: uppercase; letter-spacing: .14em; color: var(--magenta); font-size: .95rem; margin-top: 2.4rem;}
+h1 {font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.08; margin: .3rem 0 .8rem;}
+.sub {font-size: 1.35rem; color: var(--tx2); max-width: 40rem;}
+.art {width: 100%; height: 150px; display: block; margin-top: 2.5rem;}
+.credit {text-align: center; color: var(--tx2); font-style: italic; font-size: .95rem;}
+.pasta {text-align: center; font-size: clamp(1.4rem, 3.5vw, 2rem); margin: 2.5rem auto; max-width: 46rem;}
+.pasta em {color: var(--magenta);}
+.c-red {color: var(--red);} .c-cyan {color: var(--cyan);} .c-orange {color: var(--orange);} .c-purple {color: var(--purple);}
+.c-magenta {color: var(--magenta);} .c-blue {color: var(--blue);} .c-yellow {color: var(--yellow);} .c-green {color: var(--green);}
+h2 {font-size: 2rem; margin: 3.5rem 0 .6rem;}
+.shot {width: 100%; border-radius: 10px; border: 1px solid var(--ui); display: block;}
+.cap {color: var(--tx2); font-size: .95rem; margin-top: .4rem;}
+.dots {position: relative; display: flex; margin: 1.5rem 0; height: 7.6rem;}
+.dots::before {content: ''; position: absolute; left: 4%; right: 4%; top: 50%; border-top: 1.5px solid var(--tx3);}
+.dots .s {position: relative; flex: 1; display: flex; justify-content: center;}
+.dots .d {position: absolute; top: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%;}
+.dots .t {position: absolute; width: 96%; text-align: center; font-size: .95rem; line-height: 1.25; color: var(--tx2);}
+.dots .up .t {bottom: calc(50% + 12px);} .dots .down .t {top: calc(50% + 12px);}
+.grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem;}
+.grid h3 {margin: 0 0 .2rem; font-size: 1.25rem;}
+.grid p {margin: 0; color: var(--tx2);}
+table {border-collapse: collapse; width: 100%; font-size: 1.05rem;}
+th, td {text-align: left; padding: .55rem .4rem; border-bottom: 1px solid var(--ui);}
+td.r, th.r {text-align: right; font-variant-numeric: tabular-nums;}
+th {color: var(--tx2); font-weight: 400;}
+.table-wrap {overflow-x: auto;}
+pre {background: var(--bg2); border-radius: 8px; padding: 1rem; overflow-x: auto; font-size: .95rem;}
+.why {background: var(--bg2); border-radius: 10px; padding: 1rem 1.2rem; color: var(--tx2);}
+.btn {display: inline-block; background: var(--magenta); color: var(--bg); padding: .55rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 700;}
+footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); margin-top: 4rem; padding-top: 1.2rem;}
+@media (max-width: 640px) { .dots {height: 9.5rem;} .dots .t {font-size: .78rem;} nav a.hide {display: none;} }
+</style>
+</head>
+<body>
+<nav>
+  <b><span class="c-magenta">Gluc</span><span class="c-blue">klich</span></b>
+  <div><a class="hide" href="#how">How it works</a><a class="hide" href="#results">Results</a><a href="{{REPO}}">Code</a><button id="theme" aria-label="Switch between light and dark">Theme</button></div>
+</nav>
+<main>
+  <div class="brand"><span class="c-magenta">Gluc</span><span class="c-blue">klich</span></div>
+  <button class="say" id="say" title="Hear it (recording: Jeuwre, CC BY-SA 4.0, Wikimedia Commons)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg><span>/ˈɡlʏklɪç/</span> <i>happy</i></button>
+  <div class="team"><span class="c-cyan">Wellness</span> <span class="c-orange">Team #3</span></div>
+
+  <div class="kicker">glucose, before it happens</div>
+  <h1>What will that meal do to your blood sugar?</h1>
+  <div class="sub">Show us what's on your plate and we'll sketch your next three hours. Spikes, dips, the lot!</div>
+
+  <svg class="art" viewBox="0 0 1000 170" preserveAspectRatio="none" role="img" aria-label="One real day of glucose readings">
+    <defs><linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="var(--blue)"/><stop offset=".35" stop-color="var(--cyan)"/>
+      <stop offset=".6" stop-color="var(--orange)"/><stop offset="1" stop-color="var(--magenta)"/></linearGradient></defs>
+    <polyline points="{{PTS}}" fill="none" stroke="url(#gl)" stroke-width="2.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>{{DOTS}}</svg>
+  <div class="credit">One real day of someone's glucose, as the sensor saw it. The yellow dots are meals.</div>
+  <div class="pasta"><em>Same bowl of pasta, different person, totally different spike.</em> So we learn <span class="c-red">you</span> first.</div>
+
+  <img class="shot" id="shot" src="img/predict_light.webp" alt="Glucklich predicting Maya's lunch: the dashed prediction, its band, and the real readings in green inside it">
+  <div class="cap">Maya's lunch. Dashed: our prediction. Shaded: where 8 in 10 readings should land. Green: what really happened.</div>
+
+  <h2>What you can do</h2>
+  <div class="grid">
+    <div><h3 class="c-yellow">Predict a meal</h3><p>Drop your glucose history and a meal, typed or from a photo. Get the next three hours with an honest band around it.</p></div>
+    <div><h3 class="c-purple">Predict a whole day</h3><p>Plan meals, exercise and insulin, and see the day's peaks, lows and time in range.</p></div>
+    <div><h3 class="c-green">Check us</h3><p>Drop what really happened, one file or a whole folder. We score the prediction and learn from it.</p></div>
+  </div>
+
+  <h2 id="how">How it works</h2>
+  <div class="dots">{{FLOW}}</div>
+  <div class="grid">
+    <div><h3>Read the plate</h3><p>CLIP, an open image model, gives a phrase for the photo. The best phrases are matched to 5,200 USDA foods at a typical portion, and to meals you logged before that look the same.</p></div>
+    <div><h3>Learn you first</h3><p>A regression on your recent glucose, food, insulin and activity, fitted in three layers: everyone, people like you, then you. Your own data counts most once there is enough of it.</p></div>
+    <div><h3>Say how sure we are</h3><p>We replay your last 20 meals and size the band so about 8 in 10 of your real readings fall inside it.</p></div>
+  </div>
+
+  <h2 id="results">Results</h2>
+  <p>On people the model never saw: learn from days 1 to 7, predict every meal from day 8 on, scored against the raw sensor.</p>
+  <div class="table-wrap"><table>
+    <tr><th></th><th class="r">Typical miss (RMSE, mg/dL)</th><th class="r">Truth inside the 80 % band</th></tr>
+    <tr><td>Healthy, prediabetes, type 2</td><td class="r">22.4</td><td class="r">80 %</td></tr>
+    <tr><td>Type 1</td><td class="r">41.6</td><td class="r">82 %</td></tr>
+  </table></div>
+  <p class="cap">RMSE: the typical distance between the real readings and our predicted line. Type 1 is harder: logged carbs are rough, and insulin pumps react to glucose as it changes.</p>
+
+  <h2>Try it</h2>
+  <div class="why">The site runs Python models and an image model, so it needs a server. GitHub Pages only serves static pages like this one. To run it yourself:</div>
+  <pre>git lfs install
+git clone {{REPO}}
+cd HealthHack2026
+pip install -r requirements.txt
+streamlit run app.py</pre>
+  <p><a class="btn" href="{{REPO}}">See the code</a></p>
+
+  <footer>
+    Wellness Team #3, Health Hack 2026. Not medical advice.<br>
+    Data: CGMacros (PhysioNet), MetaboNet. Food: USDA FNDDS. Photo model: OpenAI CLIP. Insulin curve: OpenAPS.
+    Font: Libron (SIL OFL). Colours: Flexoki. Pronunciation: Jeuwre, CC BY-SA 4.0, Wikimedia Commons.
+  </footer>
+</main>
+<script>
+(() => {
+  const root = document.documentElement, img = document.getElementById('shot');
+  const dark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const sync = () => { img.src = dark() ? 'img/predict_dark.webp' : 'img/predict_light.webp'; };
+  try { const t = localStorage.getItem('glk-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  sync();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+  document.getElementById('theme').onclick = () => {
+    root.dataset.theme = dark() ? 'light' : 'dark';
+    try { localStorage.setItem('glk-theme', root.dataset.theme); } catch (e) {}
+    sync();
+  };
+  const audio = new Audio();
+  audio.src = audio.canPlayType('audio/ogg') ? 'audio/glucklich.ogg' : 'audio/glucklich.mp3';
+  document.getElementById('say').onclick = () => {
+    audio.currentTime = 0;
+    audio.play().catch(() => { const u = new SpeechSynthesisUtterance('glücklich'); u.lang = 'de-DE'; speechSynthesis.speak(u); });
+  };
+})();
+</script>
+</body>
+</html>

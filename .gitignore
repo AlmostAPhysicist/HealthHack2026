@@ -1,0 +1,23 @@
+# Datasets, caches and downloads (large, and not ours to redistribute; see AboutDatasets.md).
+# Kept: the small files the photo model reads at runtime (food table, text vectors, photo memory).
+data/*
+!data/fndds_foods.csv
+!data/cache/
+data/cache/*
+!data/cache/fndds_text_L14.npy
+!data/cache/photo_memory_L14.npz
+!data/cache/photo_settings.json
+# What visitors upload through the site stays private
+**/contributed/
+# Old weights backup
+models/weights/models_v4.pkl
+# Logs and scratch
+results/logs/
+results/*.txt
+*.log
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+*_building/

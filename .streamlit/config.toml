@@ -1,0 +1,55 @@
+# Flexoki palette (https://stephango.com/flexoki). Light or dark follows the system theme.
+# Typeface: Libron (nicoverbruggen/ebook-fonts, fonts/core @ 1383430), SIL Open Font License, served from static/fonts.
+[server]
+enableStaticServing = true
+
+[client]
+# Viewer toolbar: no Deploy button or developer options, just the menu (theme, print).
+toolbarMode = "viewer"
+
+[theme]
+font = "Libron, Georgia, serif"
+headingFont = "Libron, Georgia, serif"
+baseRadius = "6px"
+
+[[theme.fontFaces]]
+family = "Libron"
+url = "app/static/fonts/Libron-Regular.ttf"
+weight = 400
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Libron"
+url = "app/static/fonts/Libron-Bold.ttf"
+weight = 700
+style = "normal"
+
+[[theme.fontFaces]]
+family = "Libron"
+url = "app/static/fonts/Libron-Italic.ttf"
+weight = 400
+style = "italic"
+
+[[theme.fontFaces]]
+family = "Libron"
+url = "app/static/fonts/Libron-BoldItalic.ttf"
+weight = 700
+style = "italic"
+
+[theme.light]
+primaryColor = "#205EA6"
+backgroundColor = "#FFFCF0"
+secondaryBackgroundColor = "#F2F0E5"
+textColor = "#100F0F"
+linkColor = "#205EA6"
+borderColor = "#DAD8CE"
+chartCategoricalColors = ["#205EA6", "#BC5215", "#24837B", "#AD8301", "#5E409D", "#66800B", "#A02F6F", "#AF3029"]
+
+[theme.dark]
+primaryColor = "#4385BE"
+backgroundColor = "#100F0F"
+secondaryBackgroundColor = "#1C1B1A"
+textColor = "#CECDC3"
+linkColor = "#4385BE"
+borderColor = "#343331"
+chartCategoricalColors = ["#4385BE", "#DA702C", "#3AA99F", "#D0A215", "#8B7EC8", "#879A39", "#CE5D97", "#D14D41"]

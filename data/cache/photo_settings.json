@@ -1,0 +1,13 @@
+{
+  "temperature": 50.0,
+  "top": 20,
+  "memory_center": 0.85,
+  "memory_width": 0.05,
+  "scale": {
+    "carbs": 1.0,
+    "protein": 1.0,
+    "fat": 1.0,
+    "fiber": 1.0,
+    "calories": 1.0
+  }
+}

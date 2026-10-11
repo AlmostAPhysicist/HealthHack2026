@@ -1,0 +1,20 @@
+{
+  "id": "cgmacros-011",
+  "source": "CGMacros",
+  "group": "prediabetes",
+  "a1c": 5.7,
+  "fasting_glucose": 109.0,
+  "bmi": 29.16271975,
+  "age": 34.0,
+  "route": {
+    "group": "prediabetes",
+    "backend": "metabolic",
+    "reason": "CGM trends (50% sure)",
+    "probabilities": {
+      "healthy": 0.21,
+      "prediabetes": 0.5,
+      "t1d": 0.0,
+      "t2d": 0.29
+    }
+  }
+}

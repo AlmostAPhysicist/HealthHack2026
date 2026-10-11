@@ -1,0 +1,14 @@
+{
+  "id": "AZT1D-9",
+  "source": "AZT1D",
+  "group": "t1d",
+  "modality": "AID",
+  "age": 54.0,
+  "gender": "Female",
+  "route": {
+    "group": "t1d",
+    "backend": "t1d",
+    "reason": "takes mealtime insulin",
+    "probabilities": null
+  }
+}

@@ -1,0 +1,15 @@
+streamlit==1.65.0
+pandas>=3.0
+numpy>=2.4
+scikit-learn==1.9.1
+scipy>=1.17
+plotly>=7.1
+dcor>=0.7
+pillow>=12
+openpyxl>=3.1
+xlrd>=2.0
+pyarrow>=25
+# Photo -> nutrition (CLIP); optional, the site works without it
+torch>=2.14
+transformers>=5.19
+openvino>=2026.4

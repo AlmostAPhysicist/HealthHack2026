@@ -1,0 +1,14 @@
+id,group,routed_to,route_reason,regressor_meal_rmse,regressor_day_rmse,overlay_meal_rmse,overlay_day_rmse
+cgmacros-003,t2d,prediabetes,CGM trends (43% sure),31.7,21.0,25.1,25.0
+cgmacros-011,prediabetes,prediabetes,CGM trends (50% sure),17.4,15.1,15.4,12.2
+cgmacros-017,healthy,healthy,CGM trends (83% sure),12.4,11.9,10.3,13.3
+cgmacros-021,healthy,prediabetes,CGM trends (49% sure),16.1,13.3,17.4,13.4
+cgmacros-026,prediabetes,prediabetes,CGM trends (48% sure),14.3,22.2,14.6,23.1
+cgmacros-046,t2d,t2d,CGM trends (97% sure),34.9,37.4,31.6,33.6
+AZT1D-9,t1d,t1d,takes mealtime insulin,73.4,73.7,78.9,73.4
+HUPA-UCM-3,t1d,t1d,takes mealtime insulin,37.4,45.4,34.6,39.0
+Loop-1045,t1d,t1d,takes mealtime insulin,56.3,44.1,56.8,44.4
+Loop-867,t1d,t1d,takes mealtime insulin,47.7,29.6,46.0,28.8
+OhioT1DM-570,t1d,t1d,takes mealtime insulin,17.0,38.9,24.7,36.1
+OhioT1DM-591,t1d,t1d,takes mealtime insulin,30.1,54.4,33.5,54.0
+PEDAP-61,t1d,t1d,takes mealtime insulin,29.1,37.0,29.2,37.2

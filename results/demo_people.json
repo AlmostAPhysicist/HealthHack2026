@@ -1,0 +1,27 @@
+{
+ "Maya": [
+  "demo",
+  "metabolic",
+  "cgmacros-010"
+ ],
+ "Sam": [
+  "demo",
+  "metabolic",
+  "cgmacros-028"
+ ],
+ "Ana": [
+  "demo",
+  "t1d",
+  "Loop-116"
+ ],
+ "Jo": [
+  "try_me",
+  "metabolic",
+  "cgmacros-017"
+ ],
+ "Theo": [
+  "try_me",
+  "t1d",
+  "Loop-1163"
+ ]
+}

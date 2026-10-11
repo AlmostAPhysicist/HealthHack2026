@@ -1,0 +1,20 @@
+{
+  "id": "cgmacros-017",
+  "source": "CGMacros",
+  "group": "healthy",
+  "a1c": 5.0,
+  "fasting_glucose": 95.0,
+  "bmi": 22.69318234,
+  "age": 33.0,
+  "route": {
+    "group": "healthy",
+    "backend": "metabolic",
+    "reason": "CGM trends (83% sure)",
+    "probabilities": {
+      "healthy": 0.83,
+      "prediabetes": 0.16,
+      "t1d": 0.0,
+      "t2d": 0.01
+    }
+  }
+}

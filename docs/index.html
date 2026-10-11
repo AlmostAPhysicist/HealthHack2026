@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glucklich</title>
+<meta name="description" content="Glucklich predicts your glucose after a meal, or for a whole day, from your own history. Wellness Team #3, Health Hack 2026.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpolyline points='2,22 9,20 13,8 17,24 22,16 30,18' fill='none' stroke='%23A02F6F' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+@font-face {font-family: Libron; src: url(fonts/Libron-Regular.ttf); font-weight: 400;}
+@font-face {font-family: Libron; src: url(fonts/Libron-Bold.ttf); font-weight: 700;}
+@font-face {font-family: Libron; src: url(fonts/Libron-Italic.ttf); font-style: italic;}
+:root {--tx:#100F0F;--tx2:#6F6E69;--tx3:#B7B5AC;--ui:#E6E4D9;--bg:#FFFCF0;--bg2:#F2F0E5;--red:#AF3029;--orange:#BC5215;--yellow:#AD8301;--green:#66800B;--cyan:#24837B;--blue:#205EA6;--purple:#5E409D;--magenta:#A02F6F; color-scheme: light;}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {--tx:#CECDC3;--tx2:#878580;--tx3:#575653;--ui:#282726;--bg:#100F0F;--bg2:#1C1B1A;--red:#D14D41;--orange:#DA702C;--yellow:#D0A215;--green:#879A39;--cyan:#3AA99F;--blue:#4385BE;--purple:#8B7EC8;--magenta:#CE5D97; color-scheme: dark;} }
+:root[data-theme="dark"] {--tx:#CECDC3;--tx2:#878580;--tx3:#575653;--ui:#282726;--bg:#100F0F;--bg2:#1C1B1A;--red:#D14D41;--orange:#DA702C;--yellow:#D0A215;--green:#879A39;--cyan:#3AA99F;--blue:#4385BE;--purple:#8B7EC8;--magenta:#CE5D97; color-scheme: dark;}
+* {box-sizing: border-box;}
+html {-webkit-text-size-adjust: 100%;}
+body {margin: 0; background: var(--bg); color: var(--tx); font-family: Libron, Georgia, serif; font-size: 1.15rem; line-height: 1.6;}
+main {max-width: 980px; margin: 0 auto; padding: 0 16px 4rem;}
+a {color: var(--blue);}
+nav {display: flex; justify-content: space-between; align-items: center; max-width: 980px; margin: 0 auto; padding: 1rem 16px;}
+nav a {color: var(--tx2); text-decoration: none; margin-left: 1.2rem;}
+nav a:hover {color: var(--tx);}
+button {font: inherit; color: inherit; background: none; border: none; cursor: pointer; padding: 0;}
+#theme {color: var(--tx2); margin-left: 1.2rem;}
+#theme:hover {color: var(--tx);}
+.brand {font-size: clamp(3rem, 9vw, 4.6rem); line-height: 1; font-weight: 700; letter-spacing: -.01em; margin-top: 2rem;}
+.say {display: inline-flex; align-items: center; gap: .45rem; color: var(--tx2); font-size: 1.05rem; margin-top: .3rem;}
+.say:hover {color: var(--tx);}
+.say svg {width: 20px; height: 20px;}
+.team {font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 700; margin-top: .6rem;}
+.kicker {text-transform: uppercase; letter-spacing: .14em; color: var(--magenta); font-size: .95rem; margin-top: 2.4rem;}
+h1 {font-size: clamp(2.2rem, 6vw, 3.6rem); line-height: 1.08; margin: .3rem 0 .8rem;}
+.sub {font-size: 1.35rem; color: var(--tx2); max-width: 40rem;}
+.art {width: 100%; height: 150px; display: block; margin-top: 2.5rem;}
+.credit {text-align: center; color: var(--tx2); font-style: italic; font-size: .95rem;}
+.pasta {text-align: center; font-size: clamp(1.4rem, 3.5vw, 2rem); margin: 2.5rem auto; max-width: 46rem;}
+.pasta em {color: var(--magenta);}
+.c-red {color: var(--red);} .c-cyan {color: var(--cyan);} .c-orange {color: var(--orange);} .c-purple {color: var(--purple);}
+.c-magenta {color: var(--magenta);} .c-blue {color: var(--blue);} .c-yellow {color: var(--yellow);} .c-green {color: var(--green);}
+h2 {font-size: 2rem; margin: 3.5rem 0 .6rem;}
+.shot {width: 100%; border-radius: 10px; border: 1px solid var(--ui); display: block;}
+.cap {color: var(--tx2); font-size: .95rem; margin-top: .4rem;}
+.dots {position: relative; display: flex; margin: 1.5rem 0; height: 7.6rem;}
+.dots::before {content: ''; position: absolute; left: 4%; right: 4%; top: 50%; border-top: 1.5px solid var(--tx3);}
+.dots .s {position: relative; flex: 1; display: flex; justify-content: center;}
+.dots .d {position: absolute; top: calc(50% - 6px); width: 12px; height: 12px; border-radius: 50%;}
+.dots .t {position: absolute; width: 96%; text-align: center; font-size: .95rem; line-height: 1.25; color: var(--tx2);}
+.dots .up .t {bottom: calc(50% + 12px);} .dots .down .t {top: calc(50% + 12px);}
+.grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.4rem;}
+.grid h3 {margin: 0 0 .2rem; font-size: 1.25rem;}
+.grid p {margin: 0; color: var(--tx2);}
+table {border-collapse: collapse; width: 100%; font-size: 1.05rem;}
+th, td {text-align: left; padding: .55rem .4rem; border-bottom: 1px solid var(--ui);}
+td.r, th.r {text-align: right; font-variant-numeric: tabular-nums;}
+th {color: var(--tx2); font-weight: 400;}
+.table-wrap {overflow-x: auto;}
+pre {background: var(--bg2); border-radius: 8px; padding: 1rem; overflow-x: auto; font-size: .95rem;}
+.why {background: var(--bg2); border-radius: 10px; padding: 1rem 1.2rem; color: var(--tx2);}
+.btn {display: inline-block; background: var(--magenta); color: var(--bg); padding: .55rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 700;}
+footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); margin-top: 4rem; padding-top: 1.2rem;}
+@media (max-width: 640px) { .dots {height: 9.5rem;} .dots .t {font-size: .78rem;} nav a.hide {display: none;} }
+</style>
+</head>
+<body>
+<nav>
+  <b><span class="c-magenta">Gluc</span><span class="c-blue">klich</span></b>
+  <div><a class="hide" href="#how">How it works</a><a class="hide" href="#results">Results</a><a href="https://github.com/AlmostAPhysicist/HealthHack2026">Code</a><button id="theme" aria-label="Switch between light and dark">Theme</button></div>
+</nav>
+<main>
+  <div class="brand"><span class="c-magenta">Gluc</span><span class="c-blue">klich</span></div>
+  <button class="say" id="say" title="Hear it (recording: Jeuwre, CC BY-SA 4.0, Wikimedia Commons)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg><span>/ˈɡlʏklɪç/</span> <i>happy</i></button>
+  <div class="team"><span class="c-cyan">Wellness</span> <span class="c-orange">Team #3</span></div>
+
+  <div class="kicker">glucose, before it happens</div>
+  <h1>What will that meal do to your blood sugar?</h1>
+  <div class="sub">Show us what's on your plate and we'll sketch your next three hours. Spikes, dips, the lot!</div>
+
+  <svg class="art" viewBox="0 0 1000 170" preserveAspectRatio="none" role="img" aria-label="One real day of glucose readings">
+    <defs><linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="var(--blue)"/><stop offset=".35" stop-color="var(--cyan)"/>
+      <stop offset=".6" stop-color="var(--orange)"/><stop offset="1" stop-color="var(--magenta)"/></linearGradient></defs>
+    <polyline points="0.0,113.8 3.5,114.7 6.9,113.7 10.4,112.6 13.9,111.8 17.4,112.1 20.8,112.4 24.3,113.3 27.8,115.5 31.2,117.8 34.7,119.5 38.2,119.6 41.7,119.6 45.1,119.2 48.6,117.8 52.1,116.3 55.6,115.2 59.0,115.0 62.5,115.0 66.0,115.2 69.4,115.5 72.9,115.8 76.4,116.3 79.9,116.6 83.3,117.0 86.8,117.8 90.3,119.6 93.8,121.5 97.2,123.3 100.7,124.8 104.2,126.2 107.6,127.6 111.1,128.4 114.6,129.2 118.1,130.0 121.5,131.1 125.0,132.2 128.5,133.4 131.9,134.5 135.4,135.6 138.9,136.5 142.4,137.0 145.8,137.3 149.3,137.8 152.8,138.1 156.2,138.5 159.7,138.7 163.2,138.3 166.7,138.0 170.1,137.6 173.6,136.8 177.1,136.0 180.6,135.1 184.0,133.6 187.5,132.1 191.0,130.7 194.4,129.5 197.9,128.4 201.4,127.5 204.9,127.0 208.3,126.7 211.8,126.5 215.3,126.8 218.8,127.1 222.2,127.5 225.7,127.5 229.2,127.5 232.6,127.6 236.1,127.9 239.6,128.3 243.1,128.7 246.5,129.1 250.0,129.4 253.5,129.5 256.9,128.8 260.4,128.1 263.9,126.6 267.4,123.0 270.8,119.2 274.3,115.0 277.8,109.8 281.2,104.5 284.7,100.9 288.2,102.1 291.7,103.6 295.1,106.1 298.6,111.2 302.1,116.5 305.6,119.9 309.0,118.0 312.5,115.7 316.0,111.4 319.4,101.2 322.9,90.7 326.4,80.3 329.9,70.5 333.3,60.6 336.8,54.3 340.3,58.2 343.8,62.8 347.2,69.1 350.7,80.9 354.2,93.0 357.6,103.2 361.1,108.0 364.6,112.6 368.1,115.3 371.5,112.6 375.0,109.5 378.5,106.8 381.9,104.9 385.4,102.9 388.9,101.5 392.4,101.0 395.8,100.7 399.3,100.6 402.8,101.2 406.2,102.0 409.7,102.5 413.2,102.1 416.7,101.8 420.1,101.7 423.6,102.4 427.1,103.2 430.6,104.4 434.0,107.3 437.5,110.4 441.0,114.0 444.4,119.6 447.9,125.2 451.4,130.2 454.9,133.4 458.3,136.4 461.8,138.3 465.3,137.0 468.8,135.5 472.2,133.8 475.7,131.6 479.2,129.3 482.6,127.5 486.1,127.0 489.6,126.7 493.1,126.2 496.5,125.4 500.0,124.7 503.5,123.8 506.9,122.3 510.4,120.8 513.9,119.2 517.4,117.8 520.8,116.3 524.3,115.2 527.8,115.5 531.2,115.8 534.7,116.4 538.2,117.5 541.7,118.7 545.1,119.7 548.6,120.5 552.1,121.3 555.6,121.7 559.0,121.4 562.5,121.0 566.0,120.6 569.4,120.2 572.9,119.9 576.4,119.6 579.9,119.6 583.3,119.6 586.8,119.8 590.3,120.5 593.8,121.3 597.2,122.1 600.7,123.2 604.2,124.3 607.6,125.3 611.1,126.1 614.6,126.9 618.1,127.5 621.5,127.5 625.0,127.5 628.5,127.5 631.9,127.5 635.4,127.5 638.9,127.4 642.4,127.0 645.8,126.7 649.3,126.6 652.8,127.3 656.2,128.1 659.7,128.7 663.2,129.1 666.7,129.4 670.1,129.6 673.6,129.3 677.1,129.0 680.6,128.7 684.0,129.1 687.5,129.4 691.0,129.9 694.4,130.7 697.9,131.4 701.4,131.3 704.9,128.8 708.3,126.2 711.8,123.5 715.3,120.5 718.8,117.4 722.2,115.5 725.7,116.8 729.2,118.3 732.6,119.9 736.1,121.8 739.6,123.8 743.1,125.2 746.5,125.7 750.0,126.0 753.5,126.4 756.9,126.4 760.4,126.4 763.9,125.9 767.4,124.1 770.8,122.2 774.3,120.7 777.8,120.2 781.2,119.9 784.7,118.1 788.2,112.3 791.7,106.3 795.1,98.4 798.6,84.7 802.1,70.8 805.6,57.9 809.0,48.3 812.5,38.9 816.0,31.7 819.4,31.3 822.9,31.3 826.4,32.1 829.9,35.4 833.3,38.8 836.8,41.0 840.3,39.7 843.8,38.2 847.2,36.6 850.7,34.7 854.2,32.8 857.6,34.4 861.1,46.2 864.6,58.7 868.1,71.8 871.5,86.8 875.0,101.8 878.5,113.9 881.9,117.1 885.4,119.7 888.9,120.1 892.4,113.7 895.8,106.9 899.3,100.1 902.8,93.3 906.2,86.5 909.7,82.0 913.2,84.3 916.7,86.9 920.1,92.3 923.6,106.2 927.1,120.6 930.6,132.1 934.0,135.2 937.5,137.8 941.0,137.8 944.4,129.5 947.9,120.8 951.4,113.2 954.9,108.9 958.3,104.7 961.8,102.0 965.3,103.3 968.8,104.7 972.2,106.6 975.7,109.2 979.2,111.8 982.6,114.2 986.1,116.2 989.6,118.1 993.1,119.2 996.5,118.2" fill="none" stroke="url(#gl)" stroke-width="2.6" stroke-linejoin="round" vector-effect="non-scaling-stroke"/><circle cx='312.5' cy='158' r='4' fill='var(--yellow)'/><circle cx='496.5' cy='158' r='4' fill='var(--yellow)'/><circle cx='784.7' cy='158' r='4' fill='var(--yellow)'/><circle cx='993.1' cy='158' r='4' fill='var(--yellow)'/></svg>
+  <div class="credit">One real day of someone's glucose, as the sensor saw it. The yellow dots are meals.</div>
+  <div class="pasta"><em>Same bowl of pasta, different person, totally different spike.</em> So we learn <span class="c-red">you</span> first.</div>
+
+  <img class="shot" id="shot" src="img/predict_light.webp" alt="Glucklich predicting Maya's lunch: the dashed prediction, its band, and the real readings in green inside it">
+  <div class="cap">Maya's lunch. Dashed: our prediction. Shaded: where 8 in 10 readings should land. Green: what really happened.</div>
+
+  <h2>What you can do</h2>
+  <div class="grid">
+    <div><h3 class="c-yellow">Predict a meal</h3><p>Drop your glucose history and a meal, typed or from a photo. Get the next three hours with an honest band around it.</p></div>
+    <div><h3 class="c-purple">Predict a whole day</h3><p>Plan meals, exercise and insulin, and see the day's peaks, lows and time in range.</p></div>
+    <div><h3 class="c-green">Check us</h3><p>Drop what really happened, one file or a whole folder. We score the prediction and learn from it.</p></div>
+  </div>
+
+  <h2 id="how">How it works</h2>
+  <div class="dots"><div class='s up'><div class='d' style='background:var(--red)'></div><div class='t'>Raw sensor data</div></div><div class='s down'><div class='d' style='background:var(--red)'></div><div class='t'>Remove noise</div></div><div class='s up'><div class='d' style='background:var(--blue)'></div><div class='t'>Type 1 or not?</div></div><div class='s down'><div class='d' style='background:var(--cyan)'></div><div class='t'>Photo to nutrition (CLIP + USDA)</div></div><div class='s up'><div class='d' style='background:var(--orange)'></div><div class='t'>Food and insulin in the blood (OpenAPS)</div></div><div class='s down'><div class='d' style='background:var(--blue)'></div><div class='t'>Everyone, people like you, you</div></div><div class='s up'><div class='d' style='background:var(--magenta)'></div><div class='t'>Your curve and its band</div></div></div>
+  <div class="grid">
+    <div><h3>Read the plate</h3><p>CLIP, an open image model, gives a phrase for the photo. The best phrases are matched to 5,200 USDA foods at a typical portion, and to meals you logged before that look the same.</p></div>
+    <div><h3>Learn you first</h3><p>A regression on your recent glucose, food, insulin and activity, fitted in three layers: everyone, people like you, then you. Your own data counts most once there is enough of it.</p></div>
+    <div><h3>Say how sure we are</h3><p>We replay your last 20 meals and size the band so about 8 in 10 of your real readings fall inside it.</p></div>
+  </div>
+
+  <h2 id="results">Results</h2>
+  <p>On people the model never saw: learn from days 1 to 7, predict every meal from day 8 on, scored against the raw sensor.</p>
+  <div class="table-wrap"><table>
+    <tr><th></th><th class="r">Typical miss (RMSE, mg/dL)</th><th class="r">Truth inside the 80 % band</th></tr>
+    <tr><td>Healthy, prediabetes, type 2</td><td class="r">22.4</td><td class="r">80 %</td></tr>
+    <tr><td>Type 1</td><td class="r">41.6</td><td class="r">82 %</td></tr>
+  </table></div>
+  <p class="cap">RMSE: the typical distance between the real readings and our predicted line. Type 1 is harder: logged carbs are rough, and insulin pumps react to glucose as it changes.</p>
+
+  <h2>Try it</h2>
+  <div class="why">The site runs Python models and an image model, so it needs a server. GitHub Pages only serves static pages like this one. To run it yourself:</div>
+  <pre>git lfs install
+git clone https://github.com/AlmostAPhysicist/HealthHack2026
+cd HealthHack2026
+pip install -r requirements.txt
+streamlit run app.py</pre>
+  <p><a class="btn" href="https://github.com/AlmostAPhysicist/HealthHack2026">See the code</a></p>
+
+  <footer>
+    Wellness Team #3, Health Hack 2026. Not medical advice.<br>
+    Data: CGMacros (PhysioNet), MetaboNet. Food: USDA FNDDS. Photo model: OpenAI CLIP. Insulin curve: OpenAPS.
+    Font: Libron (SIL OFL). Colours: Flexoki. Pronunciation: Jeuwre, CC BY-SA 4.0, Wikimedia Commons.
+  </footer>
+</main>
+<script>
+(() => {
+  const root = document.documentElement, img = document.getElementById('shot');
+  const dark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const sync = () => { img.src = dark() ? 'img/predict_dark.webp' : 'img/predict_light.webp'; };
+  try { const t = localStorage.getItem('glk-theme'); if (t) root.dataset.theme = t; } catch (e) {}
+  sync();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sync);
+  document.getElementById('theme').onclick = () => {
+    root.dataset.theme = dark() ? 'light' : 'dark';
+    try { localStorage.setItem('glk-theme', root.dataset.theme); } catch (e) {}
+    sync();
+  };
+  const audio = new Audio();
+  audio.src = audio.canPlayType('audio/ogg') ? 'audio/glucklich.ogg' : 'audio/glucklich.mp3';
+  document.getElementById('say').onclick = () => {
+    audio.currentTime = 0;
+    audio.play().catch(() => { const u = new SpeechSynthesisUtterance('glücklich'); u.lang = 'de-DE'; speechSynthesis.speak(u); });
+  };
+})();
+</script>
+</body>
+</html>

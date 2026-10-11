@@ -1,0 +1,14 @@
+{
+  "id": "Loop-867",
+  "source": "Loop",
+  "group": "t1d",
+  "modality": "AID",
+  "age": 33.0,
+  "gender": "Female",
+  "route": {
+    "group": "t1d",
+    "backend": "t1d",
+    "reason": "takes mealtime insulin",
+    "probabilities": null
+  }
+}

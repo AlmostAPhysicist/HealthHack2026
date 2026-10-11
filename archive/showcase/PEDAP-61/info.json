@@ -1,0 +1,14 @@
+{
+  "id": "PEDAP-61",
+  "source": "PEDAP",
+  "group": "t1d",
+  "modality": "AID",
+  "age": 4.0,
+  "gender": "Female",
+  "route": {
+    "group": "t1d",
+    "backend": "t1d",
+    "reason": "takes mealtime insulin",
+    "probabilities": null
+  }
+}

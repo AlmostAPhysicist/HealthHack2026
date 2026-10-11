@@ -1,0 +1,135 @@
+{
+ "candidates": [
+  [
+   99,
+   0.31104915402829647
+  ],
+  [
+   91,
+   0.2390801077708602
+  ],
+  [
+   4611,
+   0.08079920522868633
+  ]
+ ],
+ "memory": {
+  "carbs": 51.6,
+  "protein": 49.0,
+  "fat": 18.7,
+  "fiber": 1.8,
+  "calories": 553.2
+ },
+ "memory_weight": 0.8219154477119446,
+ "similarity": 0.9264689683914185,
+ "neighbours": [
+  {
+   "photo": "D:\\Programming\\Health Hack 2026\\data\\cgmacros\\CGMacros_dateshifted365\\CGMacros\\CGMacros-028\\photos\\00000028-PHOTO-2023-12-2-8-59-0.jpg",
+   "times_logged": 42,
+   "subject": 28,
+   "similarity": 0.9264690279960632,
+   "carbs": 73.0,
+   "protein": 66.0,
+   "fat": 42.0,
+   "fiber": 7.0,
+   "calories": 902.0
+  },
+  {
+   "photo": "D:\\Programming\\Health Hack 2026\\data\\cgmacros\\CGMacros_dateshifted365\\CGMacros\\CGMacros-020\\photos\\00000068-PHOTO-2024-3-24-4-56-0.jpg",
+   "times_logged": 42,
+   "subject": 20,
+   "similarity": 0.9202526807785034,
+   "carbs": 24.0,
+   "protein": 22.0,
+   "fat": 10.5,
+   "fiber": 0.0,
+   "calories": 268.0
+  },
+  {
+   "photo": "D:\\Programming\\Health Hack 2026\\data\\cgmacros\\CGMacros_dateshifted365\\CGMacros\\CGMacros-028\\photos\\00000016-PHOTO-2023-11-30-9-25-0.jpg",
+   "times_logged": 42,
+   "subject": 28,
+   "similarity": 0.9094185829162598,
+   "carbs": 66.0,
+   "protein": 66.0,
+   "fat": 10.5,
+   "fiber": 0.0,
+   "calories": 608.0
+  },
+  {
+   "photo": "D:\\Programming\\Health Hack 2026\\data\\cgmacros\\CGMacros_dateshifted365\\CGMacros\\CGMacros-006\\photos\\00000017-PHOTO-2023-4-9-7-30-0.jpg",
+   "times_logged": 42,
+   "subject": 6,
+   "similarity": 0.9048548340797424,
+   "carbs": 66.0,
+   "protein": 66.0,
+   "fat": 10.5,
+   "fiber": 0.0,
+   "calories": 608.0
+  },
+  {
+   "photo": "D:\\Programming\\Health Hack 2026\\data\\cgmacros\\CGMacros_dateshifted365\\CGMacros\\CGMacros-039\\photos\\00000063-PHOTO-2025-2-12-9-11-0.jpg",
+   "times_logged": 42,
+   "subject": 39,
+   "similarity": 0.9010031819343567,
+   "carbs": 24.0,
+   "protein": 22.0,
+   "fat": 10.5,
+   "fiber": 0.0,
+   "calories": 268.0
+  }
+ ],
+ "nutrition": {
+  "carbs": 48.6,
+  "protein": 41.1,
+  "fat": 16.2,
+  "fiber": 1.7,
+  "calories": 490.5
+ },
+ "names": [
+  [
+   "Hot chocolate / cocoa, dry mix , made with non-dairy milk",
+   0.31104915402829647
+  ],
+  [
+   "Chocolate milk, Nesquik, made with non-dairy milk",
+   0.2390801077708602
+  ],
+  [
+   "Fruit and vegetable smoothie, non-dairy, added protein",
+   0.08079920522868633
+  ]
+ ],
+ "options": [
+  {
+   "name": "Hot chocolate / cocoa, dry mix , made with non-dairy milk",
+   "nutrition": {
+    "carbs": 48.6,
+    "protein": 41.1,
+    "fat": 16.2,
+    "fiber": 1.7,
+    "calories": 490.5
+   }
+  },
+  {
+   "name": "Chocolate milk, Nesquik, made with non-dairy milk",
+   "nutrition": {
+    "carbs": 46.1,
+    "protein": 40.9,
+    "fat": 16.1,
+    "fiber": 1.7,
+    "calories": 478.5
+   }
+  },
+  {
+   "name": "Fruit and vegetable smoothie, non-dairy, added protein",
+   "nutrition": {
+    "carbs": 49.3,
+    "protein": 44.4,
+    "fat": 15.8,
+    "fiber": 2.2,
+    "calories": 502.6
+   }
+  }
+ ]
+}

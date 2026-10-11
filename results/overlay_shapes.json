@@ -1,0 +1,188 @@
+{
+  "metabolic": {
+    "food": {
+      "spike_centers": [
+        5.03,
+        172.69,
+        8.16
+      ],
+      "cooldown_centers": [
+        71.81,
+        270.33,
+        141.0
+      ],
+      "spike_widths": [
+        18.49,
+        5.8,
+        4.47
+      ],
+      "cooldown_widths": [
+        14.86,
+        76.79,
+        52.71
+      ]
+    },
+    "exercise": {
+      "spike_centers": [
+        5.03,
+        240.57,
+        200.56
+      ],
+      "cooldown_centers": [
+        22.54,
+        152.37,
+        282.19
+      ],
+      "spike_widths": [
+        3.68,
+        15.0,
+        25.0
+      ],
+      "cooldown_widths": [
+        10.0,
+        20.0,
+        40.0
+      ]
+    },
+    "quiet": {
+      "spike_centers": [
+        5.03,
+        29.95,
+        228.26
+      ],
+      "cooldown_centers": [
+        91.9,
+        151.61,
+        357.76
+      ],
+      "spike_widths": [
+        20.0,
+        30.0,
+        40.0
+      ],
+      "cooldown_widths": [
+        30.0,
+        40.0,
+        60.0
+      ]
+    },
+    "baseline": {
+      "pull_time": 110.81,
+      "trend_fade": 5.0
+    },
+    "meal_slowdown": {
+      "meal size": 2.69,
+      "fat share": 0.78,
+      "protein share": 1.59,
+      "fiber": 1.99,
+      "time of day (sin)": 0.87,
+      "time of day (cos)": 0.97,
+      "time since last meal": 1.01,
+      "exercise before": 1.04
+    }
+  },
+  "t1d": {
+    "food": {
+      "spike_centers": [
+        79.87,
+        5.03,
+        12.17
+      ],
+      "cooldown_centers": [
+        42.89,
+        357.93,
+        136.18
+      ],
+      "spike_widths": [
+        20.85,
+        3.02,
+        3.01
+      ],
+      "cooldown_widths": [
+        8.71,
+        119.55,
+        40.62
+      ]
+    },
+    "insulin": {
+      "spike_centers": [
+        5.02,
+        31.22,
+        5.03
+      ],
+      "cooldown_centers": [
+        24.53,
+        5.02,
+        317.62
+      ],
+      "spike_widths": [
+        15.0,
+        25.0,
+        40.0
+      ],
+      "cooldown_widths": [
+        30.0,
+        40.0,
+        60.0
+      ]
+    },
+    "exercise": {
+      "spike_centers": [
+        5.03,
+        44.19,
+        151.12
+      ],
+      "cooldown_centers": [
+        20.33,
+        89.1,
+        123.13
+      ],
+      "spike_widths": [
+        3.01,
+        15.0,
+        25.0
+      ],
+      "cooldown_widths": [
+        10.0,
+        20.0,
+        40.0
+      ]
+    },
+    "quiet": {
+      "spike_centers": [
+        5.02,
+        29.7,
+        85.71
+      ],
+      "cooldown_centers": [
+        27.41,
+        231.03,
+        205.3
+      ],
+      "spike_widths": [
+        20.0,
+        30.0,
+        40.0
+      ],
+      "cooldown_widths": [
+        30.0,
+        40.0,
+        60.0
+      ]
+    },
+    "baseline": {
+      "pull_time": 130.4,
+      "trend_fade": 5.0
+    },
+    "meal_slowdown": {
+      "meal size": 0.41,
+      "fat share": 2.7,
+      "protein share": 2.7,
+      "fiber": 2.7,
+      "time of day (sin)": 1.57,
+      "time of day (cos)": 0.86,
+      "time since last meal": 0.96,
+      "exercise before": 2.7
+    }
+  }
+}

@@ -1,0 +1,4 @@
+time,meal,carbs,protein,fat,fiber,calories,insulin
+10:00,Breakfast,66.0,66.0,10.5,0.0,608.0,0.0
+13:40,Lunch,40.0,76.0,17.0,13.0,585.0,0.0
+16:15,Dinner,137.0,53.0,20.0,6.0,884.0,0.0
