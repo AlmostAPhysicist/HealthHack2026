@@ -3,8 +3,12 @@
 *Glücklich* is German for *happy*. Built by **Wellness Team #3** for Health Hack 2026 (Wellness Reimagined,
 Challenge 3: Predict My Glucose).
 
-**Try it on the web: https://almostaphysicist.github.io/HealthHack2026/app/**
-(the whole site runs in your browser; give it a minute or two to load the first time)
+## [Open the app](https://almostaphysicist.github.io/HealthHack2026/app/)
+
+**https://almostaphysicist.github.io/HealthHack2026/app/**
+
+Nothing to install. The whole site (demos, Meal, Full Day, Log, How it works) runs right in your browser.
+**The first load takes a minute or two** while Python and the models download, so hang tight. After that it's quick.
 
 Project page: https://almostaphysicist.github.io/HealthHack2026/
 

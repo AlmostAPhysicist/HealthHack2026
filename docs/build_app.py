@@ -47,15 +47,21 @@ PAGE = """<!doctype html>
   :root {{--bg:#FFFCF0;--tx:#100F0F;--tx2:#6F6E69;--magenta:#A02F6F;--blue:#205EA6;}}
   @media (prefers-color-scheme: dark) {{ :root {{--bg:#100F0F;--tx:#CECDC3;--tx2:#878580;--magenta:#CE5D97;--blue:#4385BE;}} }}
   body {{margin:0; background:var(--bg); color:var(--tx);}}
-  #boot {{font-family: Georgia, serif; max-width: 34rem; margin: 18vh auto 0; padding: 0 16px; text-align: center;}}
+  #boot {{position: fixed; inset: 0; z-index: 100000; background: var(--bg); display: flex; flex-direction: column;
+          align-items: center; justify-content: center; font-family: Georgia, serif; padding: 0 16px; text-align: center;}}
+  #boot > * {{max-width: 34rem;}}
   #boot b {{font-size: 3rem;}}
   #boot p {{color: var(--tx2); font-size: 1.1rem;}}
+  #boot p.big {{color: var(--tx); font-size: 1.5rem;}}
+  #boot p.time {{font-variant-numeric: tabular-nums;}}
 </style>
 </head>
 <body>
 <div id="boot"><b><span style="color:var(--magenta)">Gluc</span><span style="color:var(--blue)">klich</span></b>
-  <p>Loading the site into your browser: Python, the models and the demo people (about 60 MB, once).
-  Everything runs on your device.</p></div>
+  <p class="big">Loading... the first time takes a minute or two.</p>
+  <p>We're downloading Python, the models and the demo people (about 60 MB) so everything can run right here in
+  your browser. Next time it's quicker.</p>
+  <p class="time" id="elapsed"></p></div>
 <div id="root"></div>
 <script type="module">
 import {{ mount }} from "https://cdn.jsdelivr.net/npm/@stlite/browser@{stlite}/build/stlite.js";
@@ -65,9 +71,13 @@ const controller = mount({{
   archives: [{{ url: "./site.zip", format: "zip", options: {{}} }}],
   streamlitConfig: {{ "client.toolbarMode": "viewer" }},
 }}, document.getElementById("root"));
-const boot = document.getElementById("boot");
+const boot = document.getElementById("boot"), start = Date.now();
+const tick = setInterval(() => {{
+  const s = Math.round((Date.now() - start) / 1000);
+  document.getElementById("elapsed").textContent = s < 60 ? `${{s}} s` : `${{Math.floor(s / 60)}} min ${{s % 60}} s`;
+}}, 1000);
 new MutationObserver((_, obs) => {{
-  if (document.querySelector("[data-testid='stApp'] [data-testid='stMarkdown']")) {{ boot.remove(); obs.disconnect(); }}
+  if (document.querySelector("[data-testid='stApp'] [data-testid='stMarkdown']")) {{ boot.remove(); clearInterval(tick); obs.disconnect(); }}
 }}).observe(document.getElementById("root"), {{ childList: true, subtree: true }});
 </script>
 </body>

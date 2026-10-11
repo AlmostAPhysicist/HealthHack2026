@@ -57,6 +57,8 @@ th {color: var(--tx2); font-weight: 400;}
 .table-wrap {overflow-x: auto;}
 pre {background: var(--bg2); border-radius: 8px; padding: 1rem; overflow-x: auto; font-size: .95rem;}
 .why {background: var(--bg2); border-radius: 10px; padding: 1rem 1.2rem; color: var(--tx2);}
+.open {margin-top: 1.6rem;}
+.btn.big {font-size: 1.35rem; padding: .8rem 1.6rem; border-radius: 10px;}
 .btn {display: inline-block; background: var(--magenta); color: var(--bg); padding: .55rem 1.1rem; border-radius: 8px; text-decoration: none; font-weight: 700;}
 footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); margin-top: 4rem; padding-top: 1.2rem;}
 @media (max-width: 640px) { .dots {height: 9.5rem;} .dots .t {font-size: .78rem;} nav a.hide {display: none;} }
@@ -75,6 +77,10 @@ footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); ma
   <div class="kicker">glucose, before it happens</div>
   <h1>What will that meal do to your blood sugar?</h1>
   <div class="sub">Show us what's on your plate and we'll sketch your next three hours. Spikes, dips, the lot!</div>
+  <div class="open">
+    <a class="btn big" href="app/">Open the app</a>
+    <div class="cap">Runs right in your browser, nothing to install. The first load takes a minute or two.</div>
+  </div>
 
   <svg class="art" viewBox="0 0 1000 170" preserveAspectRatio="none" role="img" aria-label="One real day of glucose readings">
     <defs><linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="var(--blue)"/><stop offset=".35" stop-color="var(--cyan)"/>
@@ -115,7 +121,7 @@ footer {color: var(--tx2); font-size: .9rem; border-top: 1px solid var(--ui); ma
   <h2 id="try">Try it</h2>
   <p>The whole site runs in your browser: the demo people, Meal, Full Day, Log and How it works. Python and the models
   load onto your device the first time (a minute or two), then everything runs locally.</p>
-  <p><a class="btn" href="app/">Open Glucklich</a> &nbsp; <a href="{{REPO}}">See the code</a></p>
+  <p><a class="btn big" href="app/">Open the app</a> &nbsp; <a href="{{REPO}}">See the code</a></p>
   <p class="cap">Or run it on your own machine (faster, and reads food photos):</p>
   <pre>git lfs install
 git clone {{REPO}}
