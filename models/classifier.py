@@ -74,7 +74,11 @@ class TrendClassifier:
 
 def load_classifier():
     with open(PATH, "rb") as f:
-        return pickle.load(f)
+        clf = pickle.load(f)
+    lr = clf.model.steps[-1][1]                    # saved with a newer scikit-learn than the browser's (Pyodide)
+    if not hasattr(lr, "multi_class"):
+        lr.multi_class = "auto"
+    return clf
 
 
 def classify(info, series, clf=None):

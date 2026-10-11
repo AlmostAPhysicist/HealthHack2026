@@ -294,6 +294,15 @@ def sample_sets(part, target, key):
 
 # ---------- Exercise and insulin in a plan ----------
 
+def at(day, clock):
+    """A day and a clock time from an edited table -> Timestamp. The browser version hands times back as text."""
+    if isinstance(clock, str):
+        clock = pd.Timestamp(f"2000-01-01 {clock}").time()
+    elif hasattr(clock, "time") and not isinstance(clock, type(pd.Timestamp(0).time())):
+        clock = clock.time()
+    return pd.Timestamp.combine(day, clock)
+
+
 def exercise_editor(key, day, rows=None):
     """Exercise sessions: start (clock time), minutes, how hard. -> [(time, minutes, intensity)] on `day`."""
     df = pd.DataFrame(rows if rows is not None else [], columns=["start", "minutes", "intensity"])
@@ -302,7 +311,7 @@ def exercise_editor(key, day, rows=None):
         "start": st.column_config.TimeColumn("starts at", format="HH:mm", step=300),
         "minutes": st.column_config.NumberColumn("minutes", min_value=5, max_value=300, step=5, default=30),
         "intensity": st.column_config.SelectboxColumn("how hard", options=INTENSITY, default="moderate")})
-    return [(pd.Timestamp.combine(day, r["start"]), int(r["minutes"]), r["intensity"]) for _, r in out.iterrows()
+    return [(at(day, r["start"]), int(r["minutes"]), r["intensity"]) for _, r in out.iterrows()
             if pd.notna(r["start"]) and pd.notna(r["minutes"]) and r["intensity"] in INTENSITY]
 
 
@@ -313,7 +322,7 @@ def insulin_editor(key, day, rows=None):
     out = st.data_editor(df, num_rows="dynamic", key=key, width="stretch", column_config={
         "time": st.column_config.TimeColumn("time", format="HH:mm", step=300),
         "units": st.column_config.NumberColumn("units", min_value=0.0, max_value=50.0, step=0.5)})
-    return [(pd.Timestamp.combine(day, r["time"]), float(r["units"])) for _, r in out.iterrows()
+    return [(at(day, r["time"]), float(r["units"])) for _, r in out.iterrows()
             if pd.notna(r["time"]) and pd.notna(r["units"])]
 
 
@@ -440,10 +449,11 @@ def track_record(person, history):
     out = None
     if meals:
         rows = model.rows(history, base)                  # built once; each replay step only hides the future
+        meal_X = {int(a): x for a, x in zip(rows[0][0], rows[0][1])} if rows else {}    # their inputs, reused
         resid = np.full((len(meals), BAND_STEPS), np.nan)
         for k, a in enumerate(meals):
             coef = model.personalize(history, group, base, until=a, prior=prior, rows=rows)
-            p = model.predict_from(history, a, coef, base)[0][:BAND_STEPS]
+            p = (g[a] + meal_X[a] @ coef if a in meal_X else model.predict_from(history, a, coef, base)[0])[:BAND_STEPS]
             stop = min(a + 1 + BAND_STEPS, len(raw))
             resid[k, : stop - a - 1] = raw[a + 1: stop] - p[: stop - a - 1]
         e = resid[np.isfinite(resid)]

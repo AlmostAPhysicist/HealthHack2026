@@ -7,7 +7,7 @@ check the prediction.
 import pandas as pd
 import streamlit as st
 
-from engine import (DATA_TYPES, PHOTO_TYPES, NUTRIENTS, drop_box, read_readings, TYPE_COLOR, TYPE_NAME, brand, contribute, csv_rows, css, day_insights, day_plot, read_table,
+from engine import (at, DATA_TYPES, PHOTO_TYPES, NUTRIENTS, drop_box, read_readings, TYPE_COLOR, TYPE_NAME, brand, contribute, csv_rows, css, day_insights, day_plot, read_table,
                     exercise_editor, history_plot, insulin_editor, learn, meals_in, predict_plan, read, read_meals, route,
                     accuracy_note, day_headline, track_record,
                     sample_sets, score, sort_files)
@@ -112,7 +112,7 @@ meal_df = st.data_editor(meal_rows.fillna({c: 0.0 for c in meal_cols[2:]}), num_
     "fiber": st.column_config.NumberColumn("fiber (g)", min_value=0.0, max_value=300.0, default=0.0),
     "calories": st.column_config.NumberColumn("calories", min_value=0.0, max_value=12000.0, default=0.0),
     "insulin": st.column_config.NumberColumn("insulin with it (units)", min_value=0.0, max_value=50.0, default=0.0)})
-meals = [{"time": pd.Timestamp.combine(day, r["time"]), "meal": r["meal"],
+meals = [{"time": at(day, r["time"]), "meal": r["meal"],
           **{c: float(r[c]) if pd.notna(r[c]) else 0.0 for c in meal_cols[2:]}}
          for _, r in meal_df.iterrows() if pd.notna(r["time"]) and any((r[c] or 0) > 0 for c in meal_cols[2:7])]
 meals.sort(key=lambda m: m["time"])
