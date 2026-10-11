@@ -102,6 +102,8 @@ def css():
       .dots .t {{position: absolute; width: 96%; text-align: center; font-size: .86rem; line-height: 1.25; color: var(--tx2);}}
       .dots .up .t {{bottom: calc(50% + 12px);}} .dots .down .t {{top: calc(50% + 12px);}}
       .ref {{font-size: .72em; vertical-align: super; line-height: 0;}}
+      .working {{color: var(--tx2); font-size: 1.15rem; padding: 1rem 0; animation: glk-pulse 1.4s ease-in-out infinite;}}
+      @keyframes glk-pulse {{0%, 100% {{opacity: .45;}} 50% {{opacity: 1;}}}}
       .ref a {{text-decoration: none;}}
     </style>""", unsafe_allow_html=True)
     if "_theme_watch" not in st.session_state:

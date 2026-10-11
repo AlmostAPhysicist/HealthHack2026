@@ -36,7 +36,7 @@ def fresh_modules(version):
 
 
 fresh_modules(code_version())
-from common import COLUMNS, WEIGHTS, from_csv, baseline, predict_window  # noqa: E402
+from common import COLUMNS, WEIGHTS, from_csv, baseline, predict_window, solve  # noqa: E402
 from classifier import classify, load_classifier  # noqa: E402
 from plan import INTENSITY, NUTRIENTS, plan_series  # noqa: E402
 from parse import read_table  # noqa: E402,F401
@@ -54,16 +54,74 @@ def load_models(version):
         return pickle.load(f), load_classifier()
 
 
+IN_BROWSER = sys.platform == "emscripten"           # the site running in the browser (stlite on GitHub Pages)
+
+
 @st.cache_resource
 def _photo_model(version):
     """The photo module, reloaded when its file changes. Loads only the fast image model (OpenVINO when available)."""
     import importlib
     import photo2nutrition
     photo2nutrition = importlib.reload(photo2nutrition)
-    if photo2nutrition.fast_vision() is None:
+    if not IN_BROWSER and photo2nutrition.fast_vision() is None:    # the browser gets its vectors from browser_clip
         photo2nutrition.vision()
     photo2nutrition.foods_and_text()
     return photo2nutrition
+
+
+CLIP_JS = r"""
+export default async function(component) {
+  const { data, setTriggerValue, parentElement } = component;
+  const el = parentElement.querySelector('.clip');
+  if (el.dataset.key === data.key) return;                 // already working on this photo
+  el.dataset.key = data.key;
+  const say = t => { el.textContent = t; };
+  try {
+    say('Loading the photo model...');
+    const T = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3/dist/transformers.min.js');
+    const seen = {};
+    window.__glkClip = window.__glkClip || Promise.all([
+      T.AutoProcessor.from_pretrained('Xenova/clip-vit-large-patch14'),
+      T.CLIPVisionModelWithProjection.from_pretrained('Xenova/clip-vit-large-patch14', { dtype: 'q4', device: 'wasm',
+        progress_callback: p => {
+          if (p.status === 'progress' && p.total > 1e6) {
+            seen[p.file] = [p.loaded, p.total];
+            const [l, t] = Object.values(seen).reduce((a, b) => [a[0] + b[0], a[1] + b[1]], [0, 0]);
+            say(`Downloading the photo model, once (${Math.round(t / 1e6)} MB): ${Math.round(100 * l / t)}%`);
+          }
+        } }),
+    ]);
+    const [proc, model] = await window.__glkClip;
+    say('Looking at the photo...');
+    const image = await T.RawImage.fromURL(data.image);
+    const { image_embeds } = await model(await proc(image));
+    const v = Array.from(image_embeds.data);
+    const n = Math.hypot(...v);
+    setTriggerValue('vector', v.map(x => x / n));
+  } catch (e) {
+    el.dataset.key = '';
+    say('Could not read the photo here: ' + e.message);
+  }
+}
+"""
+
+
+def browser_clip(data, key):
+    """In the browser: CLIP's image vector for a photo (bytes), computed by transformers.js (the same ViT-L/14, 4-bit).
+    Returns the vector once it's ready, else None (the progress shows meanwhile and the page reruns when done)."""
+    import base64
+    done = st.session_state.setdefault("_clip_vectors", {})
+    if key in done:
+        return done[key]
+    if "_clip" not in st.session_state:
+        st.session_state["_clip"] = st.components.v2.component(
+            "browser_clip", html="<div class='clip' style='font-family:Libron,Georgia,serif;opacity:.8'></div>", js=CLIP_JS)
+    res = st.session_state["_clip"](key=f"clip_{key}", data={"key": key, "image": "data:image/jpeg;base64," +
+                                    base64.b64encode(data).decode()}, on_vector_change=lambda: None)
+    v = getattr(res, "vector", None)
+    if v is not None:
+        done[key] = v
+    return v
 
 
 def photo_model():
@@ -452,8 +510,10 @@ def track_record(person, history):
         rows = model.rows(history, base)                  # built once; each replay step only hides the future
         meal_X = {int(a): x for a, x in zip(rows[0][0], rows[0][1])} if rows else {}    # their inputs, reused
         resid = np.full((len(meals), BAND_STEPS), np.nan)
+        prior = model.prior(group) if prior is None else prior
+        seen = model.stats_until(rows, meals)              # what each replayed meal may learn from, in one pass
         for k, a in enumerate(meals):
-            coef = model.personalize(history, group, base, until=a, prior=prior, rows=rows)
+            coef = solve(seen[k], prior, model.person_strength, model.scale)
             p = (g[a] + meal_X[a] @ coef if a in meal_X else model.predict_from(history, a, coef, base)[0])[:BAND_STEPS]
             stop = min(a + 1 + BAND_STEPS, len(raw))
             resid[k, : stop - a - 1] = raw[a + 1: stop] - p[: stop - a - 1]

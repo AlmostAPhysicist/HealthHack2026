@@ -307,8 +307,15 @@ def _analyse(image, distinct=3):
     """A photo -> the most likely distinct dishes and what the photo memory says.
     Returns {'candidates': [(food index, share)], 'memory': nutrition dict or None, 'memory_weight', 'similarity'}.
     Shares are CLIP's confidence, summed over each dish's variants; each dish is shown by its likeliest variant."""
+    return analyse_vector(embed([image]), distinct)
+
+
+def analyse_vector(v, distinct=3):
+    """_analyse from a CLIP image vector (1, 768) instead of a photo: the browser version computes the vector itself
+    (transformers.js) since PyTorch doesn't run there."""
+    v = np.asarray(v, dtype=np.float32).reshape(1, -1)
+    v = v / np.linalg.norm(v, axis=1, keepdims=True)
     st = settings()
-    v = embed([image])
     _, best, w = lookup(v, st["temperature"], 50)
     foods, _ = foods_and_text()
     dishes = {}

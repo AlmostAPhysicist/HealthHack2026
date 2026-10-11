@@ -11,7 +11,7 @@ import streamlit as st
 from style import photo_file
 from PIL import Image
 
-from engine import (DATA_TYPES, PHOTO_TYPES, NUTRIENTS, drop_box, read_readings, TYPE_COLOR, TYPE_NAME, brand, contribute, read_table, csv_rows, css, exercise_editor, history_plot,
+from engine import (IN_BROWSER, browser_clip, DATA_TYPES, PHOTO_TYPES, NUTRIENTS, drop_box, read_readings, TYPE_COLOR, TYPE_NAME, brand, contribute, read_table, csv_rows, css, exercise_editor, history_plot,
                     insulin_editor, learn, meal_plot, meals_in, photo_model, predict_after_meal, read, read_meals, rise_text,
                     route, sample_sets, score, sort_files, track_record,
                     accuracy_note, commentary_html, image_picker, meal_commentary,
@@ -135,8 +135,14 @@ def read_photo(data):
     import hashlib
     k = hashlib.sha1(data).hexdigest()[:12]
     if k not in st.session_state.plate_photos:
-        with st.spinner("Looking at the photo..."):
-            st.session_state.plate_photos[k] = photo_model().analyse(Image.open(io.BytesIO(data)).convert("RGB"))
+        if IN_BROWSER:                               # CLIP runs in JavaScript there; None until its vector is back
+            v = browser_clip(data, k)
+            if v is None:
+                return None
+            st.session_state.plate_photos[k] = photo_model().analyse_vector(v)
+        else:
+            with st.spinner("Looking at the photo..."):
+                st.session_state.plate_photos[k] = photo_model().analyse(Image.open(io.BytesIO(data)).convert("RGB"))
     return st.session_state.plate_photos[k]
 
 
@@ -173,9 +179,14 @@ def card(it):
         c_photo, c_sliders, c_choices = st.columns([1, 1.6, 1.8], gap="large")
         if it["thumb"] is not None:
             c_photo.image(it["thumb"], width="stretch")
-            if it["res"] is None and c_photo.button("Get nutrition from photo", key=f"fromphoto_{i}", width="stretch"):
-                it["res"] = read_photo(it["thumb"])
-                st.rerun()
+            if it["res"] is None and (it.get("reading") or
+                                      c_photo.button("Get nutrition from photo", key=f"fromphoto_{i}", width="stretch")):
+                it["reading"] = True
+                with c_photo:
+                    res = read_photo(it["thumb"])
+                if res is not None:
+                    it["res"], it["reading"] = res, False
+                    st.rerun()
         for f, v in st.session_state.get("pending", {}).pop(i, {}).items():
             st.session_state[f"c{i}_{f}"] = v
         with c_sliders:
@@ -216,6 +227,8 @@ def add_panel():
             if up is not None:
                 data = up.getvalue()
                 res = read_photo(data)
+                if res is None:                              # still reading it (browser): progress shows above
+                    return
                 foods, _ = choices(res)
                 start = photo_model().plate([(res["candidates"][0][0], 1.0)], res["memory"], res["memory_weight"])
                 add_card(foods[0][0], start, thumb=data, res=res)       # our best estimate; the 6 choices are on the card
@@ -293,7 +306,11 @@ def get_person():
                      exclude=str(profile["dataset_id"]) if "dataset_id" in profile else None)
 
 
-if go_:
+if go_:              # say we're on it first, then do the work on the next run (the browser version can't update mid-run)
+    st.session_state["meal_go"] = True
+    st.markdown("<div class='working'>Learning you and drawing your next three hours...</div>", unsafe_allow_html=True)
+    st.rerun()
+if st.session_state.pop("meal_go", False):
     person = get_person()
     with st.spinner("Drawing your next three hours..."):
         pred = predict_after_meal(person, history, meal)

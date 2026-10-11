@@ -173,6 +173,22 @@ class Hierarchy:
             st.add(X, Y, w)
         return st
 
+    def stats_until(self, rows, untils):
+        """stats(until=u) for several sorted `untils` at once. Each reading is added once, to the first `until` that
+        may see it, and the totals are summed forward: one pass over the data instead of one per `until`."""
+        untils = np.asarray(untils)
+        parts = [Stats(self.n_features) for _ in untils]
+        for anchors, X, Y, w in rows:
+            first = np.searchsorted(untils, anchors[:, None] + np.arange(1, HORIZON + 1)[None, :], side="right")
+            for k in np.unique(first[~np.isnan(Y)]):
+                if k < len(untils):
+                    parts[k].add(X, np.where(first == k, Y, np.nan), w)
+        out, total = [], Stats(self.n_features)
+        for part in parts:
+            total = total + part
+            out.append(total)
+        return out
+
     def predict_from(self, series, anchors, coef, base):
         """Glucose (mg/dL) for the next HORIZON steps after each anchor. Shape (n_anchors, HORIZON)."""
         anchors = np.atleast_1d(anchors)

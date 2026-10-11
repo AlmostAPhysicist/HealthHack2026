@@ -158,7 +158,11 @@ def get_person():
                      exclude=str(profile["dataset_id"]) if "dataset_id" in profile else None)
 
 
-if go_:
+if go_:              # say we're on it first, then do the work on the next run (the browser version can't update mid-run)
+    st.session_state["day_go"] = True
+    st.markdown("<div class='working'>Learning you and drawing your whole day...</div>", unsafe_allow_html=True)
+    st.rerun()
+if st.session_state.pop("day_go", False):
     person = get_person()
     with st.spinner("Drawing your whole day..."):
         st.session_state.day_pred = (sig, predict_plan(person, history, start, end, meals, sessions, doses),
